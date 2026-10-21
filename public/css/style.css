@@ -1,0 +1,48 @@
+.hero {
+    min-height: 78vh;
+    background: linear-gradient(rgba(0, 0, 0, .55), rgba(0, 0, 0, .45)),
+        url('../img/labuan%20bajo.jpg') center / cover no-repeat;
+}
+
+.page-header {
+    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .5)),
+        url('../img/bromo.jpg') center / cover no-repeat;
+}
+
+.card-destinasi {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card-destinasi:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 .75rem 1.5rem rgba(0, 0, 0, .12) !important;
+}
+
+.card-destinasi .card-img-top,
+.galeri-thumb {
+    height: 210px;
+    object-fit: cover;
+}
+
+.galeri-item {
+    cursor: zoom-in;
+    overflow: hidden;
+}
+
+.galeri-item img {
+    transition: transform .3s ease;
+}
+
+.galeri-item:hover img {
+    transform: scale(1.06);
+}
+
+.detail-cover {
+    height: 420px;
+    object-fit: cover;
+}
+
+@media (max-width: 576px) {
+    .hero { min-height: 60vh; }
+    .detail-cover { height: 240px; }
+}
