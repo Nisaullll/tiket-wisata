@@ -18,7 +18,7 @@
 <section class="container py-5">
     <div class="row align-items-center g-4">
         <div class="col-lg-6">
-            <img src="{{ asset('img/Candi prambanan.jpg') }}" class="img-fluid rounded-4 shadow" alt="Pesona Wisata">
+            <img src="{{ asset('img/Trianggulasi.jpg') }}" class="img-fluid rounded-4 shadow" alt="Pesona Wisata">
         </div>
         <div class="col-lg-6">
             <h6 class="text-warning fw-bold text-uppercase">Tentang Wisata Kami</h6>
