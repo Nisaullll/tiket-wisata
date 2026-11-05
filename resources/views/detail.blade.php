@@ -6,8 +6,10 @@
                 <h4 class="mb-3">🎟️ Pesan Tiket Masuk</h4>
                 <form action="{{ route('transaksi.store') }}" method="POST">
                     @csrf
-                    <!-- Mengambil ID tiket pertama dari destinasi ini -->
-                    <input type="hidden" name="tiket_id" value="{{ $destinasi->tikets->first()->id ?? 1 }}">
+                    
+                    <!-- Kirim ID Destinasi & Tiket secara aman -->
+                    <input type="hidden" name="destinasi_id" value="{{ $destinasi->id ?? 1 }}">
+                    <input type="hidden" name="tiket_id" value="{{ optional($destinasi)->tikets?->first()->id ?? 1 }}">
                     
                     <div class="mb-3">
                         <label class="form-label">Jumlah Tiket</label>
@@ -19,7 +21,7 @@
                         <input type="date" name="tanggal_kunjungan" class="form-control" required>
                     </div>
                     
-                    <button type="submit" class="btn btn-success w-100">Pesan Tiket Sekarang</button>
+                    <button type="submit" class="btn btn-success w-100 fw-semibold">Pesan Tiket Sekarang</button>
                 </form>
             </div>
         </div>
@@ -30,7 +32,7 @@
                 <h4 class="mb-3">⭐ Berikan Ulasan & Rating</h4>
                 <form action="{{ route('ulasan.store') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="destinasi_id" value="{{ $destinasi->id }}">
+                    <input type="hidden" name="destinasi_id" value="{{ $destinasi->id ?? 1 }}">
                     
                     <div class="mb-3">
                         <label class="form-label">Rating</label>
@@ -48,7 +50,7 @@
                         <textarea name="komentar" class="form-control" rows="3" required placeholder="Tuliskan ulasan atau masukan Anda di sini..."></textarea>
                     </div>
                     
-                    <button type="submit" class="btn btn-primary w-100">Kirim Ulasan</button>
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold">Kirim Ulasan</button>
                 </form>
             </div>
         </div>

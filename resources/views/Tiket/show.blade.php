@@ -6,16 +6,46 @@
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
+            
+            <!-- Kotak Informasi Akun Pemesan & Tombol Ganti Akun -->
+            @auth
+            <div class="card bg-light border-0 p-3 mb-3 rounded-3 shadow-sm">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <small class="text-muted d-block">Akun Pemesan Terverifikasi:</small>
+                        <span class="fw-bold text-dark">{{ Auth::user()->name }}</span> 
+                        <small class="text-muted">({{ Auth::user()->email }})</small>
+                    </div>
+                    <div>
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-sm btn-outline-danger fw-semibold" onclick="return confirm('Keluar dari akun ini?')">
+                                🔄 Ganti Akun
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            @endauth
+
+            <!-- Kartu Utama E-Ticket -->
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
                 <div class="bg-warning p-4 text-center text-dark">
-                    <h4 class="fw-bold text-uppercase mb-1">E-Ticket Desa Wisata Paninggaran</h4>
+                    <h4 class="fw-bold text-uppercase mb-1">E-Ticket Desa Wisata Trianggulasi</h4>
                     <small class="fw-semibold">Bukti Pemesanan Resmi (Operational CRM)</small>
                 </div>
 
                 <div class="card-body p-4 text-center">
-                    <div class="alert alert-success fw-bold mb-4">
-                        STATUS: LUNAS / VERIFIED
-                    </div>
+                    {{-- Status dibuat dinamis berdasarkan data database --}}
+                    @if($transaksi->status == 'Lunas' || $transaksi->status == 'Verified')
+                        <div class="alert alert-success fw-bold mb-4">
+                            STATUS: {{ strtoupper($transaksi->status) }}
+                        </div>
+                    @else
+                        <div class="alert alert-warning fw-bold mb-4">
+                            STATUS: {{ strtoupper($transaksi->status) }} (Menunggu Pembayaran)
+                        </div>
+                    @endif
 
                     <!-- Gambar QR Code Otomatis Tergenerate -->
                     <div class="my-3 p-3 bg-light rounded-3 border d-inline-block shadow-sm">
@@ -36,6 +66,12 @@
                         <tr>
                             <td class="text-muted">Total Pembayaran</td>
                             <td class="fw-bold text-end text-success fs-6">Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
+                        </tr>
+                        <tr>
+                            <td class="text-muted">Metode Pembayaran</td>
+                            <td class="fw-bold text-end text-uppercase">
+                                <span class="badge bg-secondary">{{ $transaksi->metode_pembayaran ?? 'QRIS / Transfer' }}</span>
+                            </td>
                         </tr>
                     </table>
 

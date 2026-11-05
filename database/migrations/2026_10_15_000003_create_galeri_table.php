@@ -10,7 +10,6 @@ return new class extends Migration
     {
         Schema::create('galeri', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('destinasi_id')->constrained('destinasi')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('judul', 150);
             $table->string('gambar');
             $table->timestamps();

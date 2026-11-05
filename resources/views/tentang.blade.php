@@ -3,7 +3,7 @@
 @section('title', 'Tentang Kami')
 
 @section('content')
-@include('partials.page-header', ['judul' => 'Tentang Kami', 'subjudul' => 'Mengenal lebih dekat Pariwisata Nusantara'])
+@include('partials.page-header', ['judul' => 'Tentang Kami', 'subjudul' => 'Mengenal lebih dekat Wisata Trianggulasi'])
 
 <section class="container py-5">
     <div class="row g-5 align-items-center">

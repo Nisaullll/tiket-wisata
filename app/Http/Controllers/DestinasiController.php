@@ -15,24 +15,37 @@ class DestinasiController extends Controller
     public function storeTiket(Request $request)
     {
         $request->validate([
+            'nama_pembeli' => 'required|string|max:255', // Validasi nama pemesan dari form
             'jumlah_tiket' => 'required|integer|min:1',
             'tanggal_kunjungan' => 'required|date',
+            'metode_pembayaran' => 'required|string', // Validasi metode pembayaran (DANA, Transfer, dll)
         ]);
 
         $hargaSatuan = 15000; // Harga Tiket Masuk Desa Wisata Paninggaran
-        $totalHarga = $hargaSatuan * $request->jumlah_tiket;
+        $totalHarga = $hargaSatuan * $request->jumlah_tiket; // Perbaikan perkalian total harga
+
+        // Tentukan status awal berdasarkan metode pembayaran
+        // Jika bayar via E-Wallet/Transfer, status bisa pending. Jika bayar di loket atau langsung, bisa disesuaikan.
+        $statusTransaksi = ($request->metode_pembayaran == 'loket') ? 'pending' : 'paid';
 
         $transaksi = Transaksi::create([
             'kode_transaksi' => 'TKT-' . strtoupper(Str::random(8)),
             'user_id' => Auth::id() ?? 1, // Jika belum login terhubung ke ID user default
             'tiket_id' => $request->tiket_id ?? 1, // Pastikan merujuk ke tiket_id yang valid
+            'nama_pembeli' => $request->nama_pembeli,
             'jumlah_tiket' => $request->jumlah_tiket,
             'total_harga' => $totalHarga,
             'tanggal_kunjungan' => $request->tanggal_kunjungan,
-            'status' => 'paid'
+            'metode_pembayaran' => $request->metode_pembayaran, // Simpan metode pembayaran
+            'status' => $statusTransaksi
         ]);
 
-        // Langsung pindah ke halaman E-Ticket QR Code
+        // Jika memilih DANA / Pembayaran Digital, bisa diarahkan ke halaman instruksi pembayaran
+        if ($request->metode_pembayaran == 'dana') {
+            return redirect()->route('transaksi.show', $transaksi->id)->with('success', 'Silakan selesaikan pembayaran via DANA!');
+        }
+
+        // Langsung pindah ke halaman E-Ticket QR Code untuk metode lainnya
         return redirect()->route('transaksi.show', $transaksi->id)->with('success', 'Tiket Berhasil Dipesan!');
     }
 

@@ -13,7 +13,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
     <div class="container">
         <a class="navbar-brand fw-bold" href="{{ route('beranda') }}">
-            <i class="bi bi-globe-asia-australia text-warning"></i> Pariwisata Nusantara
+            <i class="bi bi-globe-asia-australia text-warning"></i> Wisata Trianggulasi
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuUtama"
                 aria-controls="menuUtama" aria-expanded="false" aria-label="Buka menu">
@@ -48,8 +48,8 @@
     <div class="container">
         <div class="row g-4">
             <div class="col-md-5">
-                <h5 class="fw-bold"><i class="bi bi-globe-asia-australia text-warning"></i> Pariwisata Nusantara</h5>
-                <p class="text-white-50 small">Memperkenalkan keindahan alam, warisan sejarah, dan budaya Indonesia kepada wisatawan sejak 2010.</p>
+                <h5 class="fw-bold"><i class="bi bi-globe-asia-australia text-warning"></i> Wisata Trianggulasi</h5>
+                <p class="text-white-50 small">Memperkenalkan keindahan alam, warisan sejarah, dan budaya Indonesia kepada wisatawan .</p>
             </div>
             <div class="col-6 col-md-3">
                 <h6 class="fw-bold">Menu</h6>
@@ -63,13 +63,13 @@
                 <h6 class="fw-bold">Hubungi Kami</h6>
                 <ul class="list-unstyled small text-white-50">
                     <li><i class="bi bi-whatsapp"></i> 0812-3456-7890</li>
-                    <li><i class="bi bi-envelope"></i> support@pariwisatanusantara.com</li>
-                    <li><i class="bi bi-geo-alt"></i> Jl. Raya Pariwisata No. 45, Yogyakarta</li>
+                    <li><i class="bi bi-envelope"></i> support@Trianggulasi.com</li>
+                    <li><i class="bi bi-geo-alt"></i> Kecamatan paninggaran, kabupaten pekalongan, jawa tengah</li>
                 </ul>
             </div>
         </div>
         <hr class="border-secondary">
-        <p class="text-center text-white-50 small mb-0">&copy; {{ date('Y') }} Pariwisata Nusantara. Hak cipta dilindungi.</p>
+        <p class="text-center text-white-50 small mb-0">&copy; {{ date('Y') }} Wisata Trianggulasi. Hak cipta dilindungi.</p>
     </div>
 </footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>

@@ -2,35 +2,35 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PesanKontak;
+use App\Models\Ulasan; // Sesuaikan dengan nama model ulasan Anda di database
 use Illuminate\Http\Request;
 
 class KontakController extends Controller
 {
     public function index()
     {
-        return view('kontak');
+        // Mengambil daftar ulasan terbaru untuk ditampilkan di bawah form kontak
+        $ulasanList = Ulasan::latest()->take(6)->get();
+
+        return view('kontak', compact('ulasanList'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'nama' => ['required', 'string', 'max:100'],
-            'email' => ['required', 'email', 'max:150'],
-            'telepon' => ['nullable', 'string', 'max:20'],
-            'subjek' => ['required', 'string', 'max:150'],
-            'pesan' => ['required', 'string', 'max:2000'],
+            'rating' => ['required', 'integer', 'min:1', 'max:5'],
+            'komentar' => ['required', 'string', 'max:2000'],
         ], [], [
-            'nama' => 'nama',
-            'email' => 'email',
-            'telepon' => 'nomor telepon',
-            'subjek' => 'subjek',
-            'pesan' => 'pesan',
+            'nama' => 'nama lengkap',
+            'rating' => 'rating penilaian',
+            'komentar' => 'ulasan kunjungan',
         ]);
 
-        PesanKontak::create($data);
+        // Simpan data ke tabel ulasan di database
+        Ulasan::create($data);
 
         return redirect()->route('kontak')
-            ->with('sukses', 'Terima kasih, ' . $data['nama'] . '! Pesan Anda sudah kami terima.');
+            ->with('sukses', 'Terima kasih, ' . $data['nama'] . '! Ulasan dan rating Anda berhasil dikirim.');
     }
 }
