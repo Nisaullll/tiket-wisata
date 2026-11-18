@@ -10,21 +10,33 @@
                 <h3 class="fw-bold mb-3 text-center">Daftar Akun Baru</h3>
                 <p class="text-muted text-center small mb-4">Gunakan email pribadi Anda untuk mulai memesan tiket wisata.</p>
 
+                <!-- Menampilkan Pesan Error Validasi (jika ada) -->
+                @if ($errors->any())
+                    <div class="alert alert-danger alert-dismissible fade show small py-2" role="alert">
+                        <ul class="mb-0 ps-3">
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                        <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                @endif
+
                 <form method="POST" action="{{ route('register.store') }}">
                     @csrf
 
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Nama Lengkap</label>
-                        <input type="text" name="name" class="form-control" required placeholder="Masukkan nama lengkap Anda">
+                        <label class="form-label fw-semibold small">Nama Lengkap</label>
+                        <input type="text" name="name" class="form-control" value="{{ old('name') }}" required placeholder="Masukkan nama lengkap Anda">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Email Pribadi</label>
-                        <input type="email" name="email" class="form-control" required placeholder="nama@email.com">
+                        <label class="form-label fw-semibold small">Email Pribadi</label>
+                        <input type="email" name="email" class="form-control" value="{{ old('email') }}" required placeholder="nama@email.com">
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label fw-semibold">Password</label>
+                        <label class="form-label fw-semibold small">Password</label>
                         <input type="password" name="password" class="form-control" required placeholder="Minimal 6 karakter">
                     </div>
 

@@ -10,9 +10,9 @@
         <div class="col-lg-6">
             <h2 class="fw-bold">Profil Singkat</h2>
             <p class="text-muted">
-                Pariwisata Nusantara didirikan pada tahun 2010 di Yogyakarta. Berawal dari komunitas pecinta jalan-jalan,
-                kami kini menjadi pusat informasi wisata yang memperkenalkan destinasi alam, sejarah, dan budaya di berbagai
-                provinsi di Indonesia.
+                Secara historis dan geografis, Desa Sawangan di Kecamatan Paninggaran dikenal sebagai wilayah dataran tinggi di Kabupaten Pekalongan yang berbatasan langsung dengan jalur penghubung penting antara Pekalongan dan Banjarnegara. Wilayah ini didominasi oleh perbukitan asri, lahan pertanian, serta lanskap alam pegunungan yang sangat mirip dengan suasana kawasan Dieng.
+
+Nama "Trianggulasi" sendiri diambil dari istilah titik triangulasi geodesi yang biasanya berada di puncak-puncak bukit tinggi sebagai referensi ukur tanah atau pemetaan wilayah zaman dulu. Karena letaknya yang berada di ketinggian strategis dengan pemandangan terbuka luas ke segala arah (360 degree view), masyarakat setempat bersama para penggerak pariwisata lokal akhirnya memanfaatkan potensi bukit ini menjadi destinasi wisata alam modern yang dikenal dengan nama Trianggulasi.Kehadiran destinasi ini awalnya dimotori oleh kesadaran masyarakat dan pemuda desa setempat untuk mengangkat potensi alam Desa Sawangan agar lebih dikenal luas oleh wisatawan luar daerah. Dari yang mulanya hanya sebuah kawasan bukit biasa yang kerap disinggahi oleh para pendaki atau pencinta alam untuk menikmati panorama matahari terbit (sunrise), kini tempat tersebut bertransformasi menjadi kawasan desa wisata terpadu yang memadukan keindahan alam, budaya lokal, hingga fasilitas rekreasi modern.
             </p>
             <p class="text-muted">
                 Kami bekerja sama dengan pengelola tempat wisata dan masyarakat lokal agar setiap kunjungan memberi manfaat
@@ -20,7 +20,7 @@
             </p>
         </div>
         <div class="col-lg-6">
-            <img src="{{ gambar_url('img/Ranu kumbolo.jpg') }}" class="img-fluid rounded-4 shadow" alt="Ranu Kumbolo">
+            
         </div>
     </div>
 </section>
@@ -54,7 +54,7 @@
         @foreach ([
             ['bi-shield-check', 'Aman & Terpercaya', 'Destinasi yang kami tampilkan telah dikurasi dan diverifikasi.'],
             ['bi-cash-coin', 'Harga Transparan', 'Informasi harga tiket masuk jelas tanpa biaya tersembunyi.'],
-            ['bi-people', 'Pemandu Lokal', 'Terhubung langsung dengan pemandu dari masyarakat setempat.'],
+            ['bi-people', 'Praktis untuk luar daerah', 'Terhubung langsung dari masyarakat setempat.'],
         ] as [$ikon, $judul, $teks])
             <div class="col-md-4">
                 <i class="bi {{ $ikon }} display-5 text-warning"></i>

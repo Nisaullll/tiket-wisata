@@ -39,7 +39,7 @@ class GaleriController extends Controller
         return back()->with('success', 'Foto galeri berhasil diunggah!');
     }
 
-    // ================= TAMBAHAN METHOD UPDATE (UBAH) =================
+    // ================= METHOD UPDATE (UBAH) =================
     public function update(Request $request, $id)
     {
         $galeri = Galeri::findOrFail($id);
@@ -69,7 +69,7 @@ class GaleriController extends Controller
         return back()->with('success', 'Foto galeri berhasil diperbarui!');
     }
 
-    // ================= TAMBAHAN METHOD DESTROY (HAPUS) =================
+    // ================= METHOD DESTROY (HAPUS) =================
     public function destroy($id)
     {
         $galeri = Galeri::findOrFail($id);

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
+use App\Models\Tiket;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TransaksiController extends Controller
 {
@@ -16,28 +18,59 @@ class TransaksiController extends Controller
             'tanggal_kunjungan' => 'required|date',
         ]);
 
-        // Simpan data transaksi ke database sesuai kolom yang tersedia di tabel transaksis
+        // Cek atau buat data tiket default jika tabel tikets kosong agar foreign key tidak error
+        $tiket = Tiket::first();
+        if (!$tiket) {
+            $tiket = Tiket::create([
+                'nama_tiket' => 'Tiket Masuk Reguler',
+                'harga' => 50000,
+            ]);
+        }
+
+        $tiketId = $request->tiket_id ?? $tiket->id;
+
+        // Simpan data transaksi ke database
         $transaksi = new Transaksi();
         $transaksi->kode_transaksi = 'TRX-' . strtoupper(uniqid());
         $transaksi->user_id = Auth::id();
-        $transaksi->tiket_id = $request->tiket_id ?? 1;
+        $transaksi->tiket_id = $tiketId;
         $transaksi->jumlah_tiket = $request->jumlah_tiket;
         $transaksi->total_harga = $request->jumlah_tiket * 50000;
         $transaksi->tanggal_kunjungan = $request->tanggal_kunjungan;
         $transaksi->status = 'Pending';
         $transaksi->save();
 
-        // Mengarahkan ke rute 'transaksi.show' yang sesuai dengan web.php
+        // Mengarahkan ke rute 'transaksi.show'
         return redirect()->route('transaksi.show', $transaksi->id)
                          ->with('success', 'Tiket berhasil dipesan! Silakan selesaikan pembayaran.');
     }
 
     public function showTiket($id)
     {
-        // Ambil data transaksi berdasarkan ID
+        $transaksi = Transaksi::findOrFail($id);
+        return view('Tiket.show', compact('transaksi'));
+    }
+
+    // ================= FUNGSI UPLOAD BUKTI TRANSFER (BARU) =================
+    public function uploadBukti(Request $request, $id)
+    {
+        $request->validate([
+            'bukti_transfer' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
         $transaksi = Transaksi::findOrFail($id);
 
-        // Tampilkan halaman e-tiket dari folder views/Tiket/show.blade.php
-        return view('Tiket.show', compact('transaksi'));
+        if ($request->hasFile('bukti_transfer')) {
+            // Simpan file ke storage/app/public/bukti-transfer
+            $path = $request->file('bukti_transfer')->store('bukti-transfer', 'public');
+            
+            // Update data transaksi
+            $transaksi->update([
+                'bukti_transfer' => $path,
+                'status' => 'Menunggu Verifikasi'
+            ]);
+        }
+
+        return back()->with('success', 'Bukti transfer berhasil diunggah! Mohon tunggu verifikasi dari admin.');
     }
 }
